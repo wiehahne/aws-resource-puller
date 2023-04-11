@@ -34,10 +34,8 @@ def write_to_csv(instance_details):
         for instance_detail in instance_details:
             writer.writerow(instance_detail)
 
-def upload_to_s3():
+def upload_to_s3(bucket_name, s3_key):
     s3_client = boto3.client('s3')
-    bucket_name = 'your-bucket-name'
-    s3_key = 'your-prefix/ec2_instances.csv'
     s3_client.upload_file('ec2_instances.csv', bucket_name, s3_key)
 
 def main():
@@ -49,7 +47,11 @@ def main():
         all_instance_details.extend(instance_details)
 
     write_to_csv(all_instance_details)
-    upload_to_s3()
+
+    bucket_name = input("Please enter the S3 bucket name (and ensure you have permissions): ")
+    s3_key = input("Please enter the S3 key (path) for the CSV file (E.g. your-prefix/ec2_instances.csv): ")
+
+    upload_to_s3(bucket_name, s3_key)
 
 if __name__ == '__main__':
     main()
