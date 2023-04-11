@@ -22,8 +22,7 @@ def get_instance_details(region):
             'Instance ID': instance.id,
             'Name': name,
             'Type': instance.instance_type,
-            'vCPUs': instance.cpu_options['CoreCount'] * instance.cpu_options['ThreadsPerCore'],
-            'Memory': instance.memory, # Please note that this attribute is not available in Boto3. You will need to map instance types to their memory sizes manually or use another API/library.
+            'vCPUs': instance.cpu_options['CoreCount'] * instance.cpu_options['ThreadsPerCore']
         })
     return instance_details
 
